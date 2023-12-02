@@ -1,6 +1,6 @@
 import Block from "./Block.jsx"
 import Strike from "./Strike.jsx";
-const Board = ({block, onBlockClick , turn}) => {
+const Board = ({block, onBlockClick , turn, strikeClass}) => {
     return (
       <div className="board">
         
@@ -13,7 +13,7 @@ const Board = ({block, onBlockClick , turn}) => {
         <Block onClick={() => onBlockClick(6)} value={block[6]} className="right-border " turn={turn}></Block>
         <Block onClick={() => onBlockClick(7)} value={block[7]} className="right-border " turn={turn}></Block>
         <Block onClick={() => onBlockClick(8)} value={block[8]} ></Block>
-        <Strike></Strike>
+        <Strike strikeClass={strikeClass}></Strike>
       </div>
     );
 }
