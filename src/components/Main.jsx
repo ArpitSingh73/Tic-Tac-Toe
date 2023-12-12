@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import Board from "./Board";
 import GameState from "./GameState";
 import GameOver from "./GameOver";
+import Reset from "./Reset";
+import move from "./sounds/mixkit-atm-cash-machine-key-press-2841.wav"
+import gameover from "./sounds/mixkit-failure-arcade-alert-notification-240.wav";
+
+const gameOverSound = new Audio(gameover);
+gameOverSound.volume = 0.2;
+const clickSound = new Audio(move);
+clickSound.volume = 0.5;
 
 const playerA = "X";
 const playerB = "O";
@@ -30,11 +38,11 @@ function checkWinner(block, setStrikeClass, setGameState) {
 
     if (
       blockValue1 !== null &&
-      blockValue1 === tileValue2 &&
-      blockValue1 === tileValue3
+      blockValue1 === blockValue2 &&
+      blockValue1 === blockValue3
     ) {
       setStrikeClass(strikeClass);
-      if (tileValue1 === playerA) {
+      if (blockValue1 === playerA) {
         setGameState(GameState.playerXWins);
       } else {
         setGameState(GameState.playerOWins);
@@ -43,7 +51,7 @@ function checkWinner(block, setStrikeClass, setGameState) {
     }
   }
 
-  const areAllTilesFilledIn = tiles.every((tile) => tile !== null);
+  const areAllTilesFilledIn = block.every((tile) => tile !== null);
   if (areAllTilesFilledIn) {
     setGameState(GameState.draw);
   }
@@ -52,11 +60,23 @@ const Main = () => {
   const [block, setBlock] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState(playerA);
   const [strikeClass, setStrikeClass] = useState("strike-row-1");
-  const [gameState, setGameState] = useState(GameState.inProgress);
+  const [gameState, setGameState] = useState();
 
-  useEffect(() => {
-    checkWinner(tiles, setStrikeClass, setGameState);
-  }, [block]);
+ useEffect(() => {
+   checkWinner(block, setStrikeClass, setGameState);
+ }, [block]);
+
+ useEffect(() => {
+   if (block.some((tile) => tile !== null)) {
+     clickSound.play();
+   }
+ }, [block]);
+
+ useEffect(() => {
+   if (gameState !== GameState.inProgress) {
+     gameOverSound.play();
+   }
+ }, [gameState]);
 
   const handleBlockClick = (index) => {
     // console.log(ind)
@@ -65,7 +85,7 @@ const Main = () => {
       return;
     }
 
-    if (tiles[index] !== null) {
+    if (block[index] !== null) {
       return;
     }
 
@@ -82,8 +102,8 @@ const Main = () => {
 
     const handleReset = () => {
       setGameState(GameState.inProgress);
-      setTiles(Array(9).fill(null));
-      setPlayerTurn(playerA);
+      setBlock(Array(9).fill(null));
+      setTurn(playerA);
       setStrikeClass(null);
     };
 
@@ -97,6 +117,7 @@ const Main = () => {
         strikeClass={strikeClass}
       ></Board>
       <GameOver gameState={GameState} />
+      <Reset gameState={gameState} onReset={handleReset}></Reset>
     </div>
   );
 };
