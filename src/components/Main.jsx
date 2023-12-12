@@ -1,10 +1,10 @@
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import Board from "./Board";
 import GameState from "./GameState";
 import GameOver from "./GameOver";
 import Reset from "./Reset";
-import Wins from "./Wins"
-import move from "./sounds/mixkit-atm-cash-machine-key-press-2841.wav"
+import Wins from "./Wins";
+import move from "./sounds/mixkit-atm-cash-machine-key-press-2841.wav";
 import gameover from "./sounds/mixkit-failure-arcade-alert-notification-240.wav";
 
 const gameOverSound = new Audio(gameover);
@@ -60,24 +60,24 @@ function checkWinner(block, setStrikeClass, setGameState) {
 const Main = () => {
   const [block, setBlock] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState(playerA);
-  const [strikeClass, setStrikeClass] = useState("strike-row-1");
-  const [gameState, setGameState] = useState();
+  const [strikeClass, setStrikeClass] = useState();
+  const [gameState, setGameState] = useState(GameState.inProgress);
 
- useEffect(() => {
-   checkWinner(block, setStrikeClass, setGameState);
- }, [block]);
+  useEffect(() => {
+    checkWinner(block, setStrikeClass, setGameState);
+  }, [block]);
 
- useEffect(() => {
-   if (block.some((tile) => tile !== null)) {
-     clickSound.play();
-   }
- }, [block]);
+  useEffect(() => {
+    if (block.some((tile) => tile !== null)) {
+      clickSound.play();
+    }
+  }, [block]);
 
- useEffect(() => {
-   if (gameState !== GameState.inProgress) {
-     gameOverSound.play();
-   }
- }, [gameState]);
+  useEffect(() => {
+    if (gameState !== GameState.inProgress) {
+      gameOverSound.play();
+    }
+  }, [gameState]);
 
   const handleBlockClick = (index) => {
     // console.log(ind)
@@ -100,13 +100,12 @@ const Main = () => {
     }
   };
 
-
-    const handleReset = () => {
-      setGameState(GameState.inProgress);
-      setBlock(Array(9).fill(null));
-      setTurn(playerA);
-      setStrikeClass(null);
-    };
+  const handleReset = () => {
+    setGameState(GameState.inProgress);
+    setBlock(Array(9).fill(null));
+    setTurn(playerA);
+    setStrikeClass(null);
+  };
 
   return (
     <div>
@@ -118,7 +117,7 @@ const Main = () => {
         strikeClass={strikeClass}
       ></Board>
       <GameOver gameState={GameState} />
-      <Wins gameState={gameState} ></Wins>
+      <Wins gameState={gameState}></Wins>
       <Reset gameState={gameState} onReset={handleReset}></Reset>
     </div>
   );
