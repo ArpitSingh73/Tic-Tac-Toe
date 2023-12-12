@@ -3,6 +3,7 @@ import Board from "./Board";
 import GameState from "./GameState";
 import GameOver from "./GameOver";
 import Reset from "./Reset";
+import Wins from "./Wins"
 import move from "./sounds/mixkit-atm-cash-machine-key-press-2841.wav"
 import gameover from "./sounds/mixkit-failure-arcade-alert-notification-240.wav";
 
@@ -117,6 +118,7 @@ const Main = () => {
         strikeClass={strikeClass}
       ></Board>
       <GameOver gameState={GameState} />
+      <Wins gameState={gameState} ></Wins>
       <Reset gameState={gameState} onReset={handleReset}></Reset>
     </div>
   );

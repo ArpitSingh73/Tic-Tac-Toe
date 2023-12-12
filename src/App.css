@@ -1,60 +1,16 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
-
 body {
   padding-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #242730;
+  background-color: #323748;
   color: white;
 }
 
 h1 {
   text-align: center;
+  
 }
-
 
 .board {
   display: grid;
@@ -62,6 +18,9 @@ h1 {
   grid-template-rows: 100px 100px 100px;
   cursor: pointer;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  border: solid 1px #323748;
+  border-radius: 10px;
 }
 
 .block {
@@ -72,7 +31,6 @@ h1 {
   align-items: center;
 }
 
-
 .right-border {
   border-right: 0.2em solid #0074a6;
 }
@@ -80,8 +38,6 @@ h1 {
 .bottom-border {
   border-bottom: 0.2em solid #0074a6;
 }
-
-
 
 .x-hover:hover::after {
   content: "X";
@@ -93,11 +49,9 @@ h1 {
   opacity: 0.4;
 }
 
-
-
 .strike {
   position: absolute;
-  background-color: rgb(255, 81, 0);
+  background-color: rgb(255, 174, 0);
 }
 
 .strike-row-1 {
@@ -145,7 +99,6 @@ h1 {
   transform: skewY(-45deg);
 }
 
-
 .game-over {
   text-align: center;
   border: #5468ff 8px;
@@ -156,10 +109,28 @@ h1 {
 }
 
 .reset-button {
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 20px;
   background-color: #0074a6;
   color: white;
   width: 100%;
-  font-size: 1.5em;
+  font-size: 1.9em;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  border: solid 1px #323748;
+  border-radius: 10px;
+}
+
+
+.wins{
+  /* width: 100%; */
+  font-size: 1.9em;
+   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  border: solid 1px #323748;
+  border-radius: 10px;
+ background-color: gold;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7px;
+  margin-top: 20px;
 }
